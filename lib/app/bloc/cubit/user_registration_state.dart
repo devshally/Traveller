@@ -7,9 +7,11 @@ class UserRegistrationInitial extends UserRegistrationState {}
 
 class UserRegistrationLoading extends UserRegistrationState {}
 
-class UserRegistrationSuccessful extends UserRegistrationState {
-  // final DataSource dataSource;
-  // UserRegistrationSuccessful(this.dataSource);
+class UserRegistrationGetSuccessful extends UserRegistrationState {
+  Map<String, double> dataMap;
+  UserRegistrationGetSuccessful(this.dataMap);
 }
+
+class UserRegistrationSuccessful extends UserRegistrationState {}
 
 class UserRegistrationError extends UserRegistrationState {}

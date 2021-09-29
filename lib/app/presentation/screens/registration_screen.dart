@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lawrenceprice_test/app/data/model.dart';
 import 'package:lawrenceprice_test/app/presentation/screens/attach_documents.dart';
 import 'package:lawrenceprice_test/app/presentation/widgets/custom_dropdown.dart';
 import 'package:lawrenceprice_test/app/presentation/widgets/header_description.dart';
@@ -12,6 +13,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  UserData userData = UserData();
   TextEditingController firstnameController = TextEditingController();
 
   TextEditingController lastnameController = TextEditingController();
@@ -125,13 +127,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ],
                     ),
                   ),
-                  const CustomDropDown(
+                  CustomDropDown(
                     hintText: 'Country',
                     selectedDropDown: 'country',
+                    userData: userData,
                   ),
-                  const CustomDropDown(
+                  CustomDropDown(
                     hintText: 'Nationality',
                     selectedDropDown: 'nationality',
+                    userData: userData,
                   ),
                   RegistrationTextField(
                       controller: nationIdentityNumberController,
@@ -139,16 +143,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   RegistrationTextField(
                       controller: bankVerificationController,
                       hintText: 'Bank Verification Number'),
-                  const CustomDropDown(
+                  CustomDropDown(
                     hintText: 'Local Government Area',
                     selectedDropDown: 'lga',
+                    userData: userData,
                   ),
                   InkWell(
                     highlightColor: Colors.transparent,
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const AttachDocumentScreen())),
+                    onTap: () {
+                      userData.firstname = firstnameController.text;
+                      userData.lastname = lastnameController.text;
+                      userData.dateOfBirth = dateOfBirthController.text;
+                      userData.gender = gender;
+                      userData.nationalIdentityNumber =
+                          nationIdentityNumberController.text;
+                      userData.bankVerificationNumber =
+                          bankVerificationController.text;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => AttachDocumentScreen(userData)));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [

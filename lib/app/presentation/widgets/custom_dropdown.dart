@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lawrenceprice_test/app/data/model.dart';
 
 class CustomDropDown extends StatefulWidget {
-  //This custom dropdown takes country, nationality, lga, then acts as a picker
+  UserData userData = UserData();
   final String hintText;
   final String selectedDropDown;
-  const CustomDropDown({
+  CustomDropDown({
+    required this.userData,
     Key? key,
     required this.hintText,
     required this.selectedDropDown,
@@ -71,9 +73,25 @@ class _CustomDropDownState extends State<CustomDropDown> {
                 );
               }).toList(),
               onChanged: (String? value) {
-                setState(() {
-                  _chosenValue = value;
-                });
+                // _chosenValue = value;
+                if (selec == 'country') {
+                  setState(() {
+                    _chosenValue = value;
+                  });
+                  widget.userData.country = _chosenValue;
+                }
+                if (selec == 'nationality') {
+                  setState(() {
+                    _chosenValue = value;
+                  });
+                  widget.userData.nationality = _chosenValue;
+                }
+                if (selec == 'lga') {
+                  setState(() {
+                    _chosenValue = value;
+                  });
+                  widget.userData.localGovernmentArea = _chosenValue;
+                }
               },
             ),
           ),

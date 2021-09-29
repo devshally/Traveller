@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lawrenceprice_test/app/data/model.dart';
 import 'package:lawrenceprice_test/app/presentation/screens/book_appointment.dart';
 import 'package:lawrenceprice_test/app/presentation/widgets/documentuploadwidget.dart';
 import 'package:lawrenceprice_test/app/presentation/widgets/header_description.dart';
 
 class AttachDocumentScreen extends StatefulWidget {
-  const AttachDocumentScreen({Key? key}) : super(key: key);
+  UserData userData;
+  AttachDocumentScreen(this.userData, {Key? key}) : super(key: key);
 
   @override
   State<AttachDocumentScreen> createState() => _AttachDocumentScreenState();
@@ -16,9 +18,9 @@ class AttachDocumentScreen extends StatefulWidget {
 class _AttachDocumentScreenState extends State<AttachDocumentScreen> {
   String visaType = '';
   final ImagePicker _picker = ImagePicker();
-  XFile? ninDocument;
-  XFile? pvcDocument;
-  XFile? medicalReport;
+  String? ninDocument;
+  String? pvcDocument;
+  String? medicalReport;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +133,7 @@ class _AttachDocumentScreenState extends State<AttachDocumentScreen> {
                           final res = await _picker.pickImage(
                               source: ImageSource.gallery);
                           setState(() {
-                            ninDocument = res;
+                            ninDocument = res!.path;
                           });
                         },
                       ),
@@ -141,7 +143,7 @@ class _AttachDocumentScreenState extends State<AttachDocumentScreen> {
                           final res = await _picker.pickImage(
                               source: ImageSource.gallery);
                           setState(() {
-                            pvcDocument = res;
+                            pvcDocument = res!.path;
                           });
                         },
                       ),
@@ -151,7 +153,7 @@ class _AttachDocumentScreenState extends State<AttachDocumentScreen> {
                           final res = await _picker.pickImage(
                               source: ImageSource.gallery);
                           setState(() {
-                            medicalReport = res;
+                            medicalReport = res!.path;
                           });
                         },
                       ),
@@ -162,10 +164,18 @@ class _AttachDocumentScreenState extends State<AttachDocumentScreen> {
               const Spacer(),
               InkWell(
                 highlightColor: Colors.transparent,
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const BookAppointmentScreen())),
+                onTap: () {
+                  widget.userData.typeOfVisa = visaType;
+                  widget.userData.nationalIdentityCard = ninDocument;
+                  widget.userData.permantVotersCard = pvcDocument;
+                  widget.userData.medicalReport = medicalReport;
+                  print(widget.userData.toMap());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              BookAppointmentScreen(widget.userData)));
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: const [

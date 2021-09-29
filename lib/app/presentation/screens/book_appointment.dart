@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawrenceprice_test/app/bloc/cubit/user_registration_cubit.dart';
+import 'package:lawrenceprice_test/app/data/model.dart';
 import 'package:lawrenceprice_test/app/presentation/widgets/custom_bottom_sheet.dart';
 import 'package:lawrenceprice_test/app/presentation/widgets/header_description.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
-  const BookAppointmentScreen({Key? key}) : super(key: key);
+  UserData userData = UserData();
+  BookAppointmentScreen(this.userData, {Key? key}) : super(key: key);
 
   @override
   State<BookAppointmentScreen> createState() => _BookAppointmentScreenState();
@@ -131,7 +133,15 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  onPressed: _handleBottomSheet,
+                  onPressed: () {
+                    widget.userData.appointmentDate = date;
+                    widget.userData.appointmentTime = time;
+                    BlocProvider.of<UserRegistrationCubit>(context)
+                        .postDataToApi(widget.userData);
+                    BlocProvider.of<UserRegistrationCubit>(context)
+                        .getGenderRatio();
+                    _handleBottomSheet();
+                  },
                   child: const Text('Submit',
                       style: TextStyle(
                         fontSize: 16.0,

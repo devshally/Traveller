@@ -4,7 +4,7 @@ import 'dart:io';
 class UserData {
   String? firstname;
   String? lastname;
-  String? dateOfDate;
+  String? dateOfBirth;
   String? gender;
   String? country;
   String? nationality;
@@ -12,30 +12,34 @@ class UserData {
   String? bankVerificationNumber;
   String? localGovernmentArea;
   String? typeOfVisa;
-  File? nationalIdentityCard;
-  File? permantVotersCard;
-  File? medicalReport;
+  String? appointmentDate;
+  String? appointmentTime;
+  String? nationalIdentityCard;
+  String? permantVotersCard;
+  String? medicalReport;
 
   UserData({
-    required this.firstname,
-    required this.lastname,
-    required this.dateOfDate,
-    required this.gender,
-    required this.country,
-    required this.nationality,
-    required this.nationalIdentityNumber,
-    required this.bankVerificationNumber,
-    required this.localGovernmentArea,
-    required this.typeOfVisa,
-    required this.nationalIdentityCard,
-    required this.permantVotersCard,
-    required this.medicalReport,
+    this.firstname,
+    this.lastname,
+    this.dateOfBirth,
+    this.gender,
+    this.country,
+    this.nationality,
+    this.nationalIdentityNumber,
+    this.bankVerificationNumber,
+    this.localGovernmentArea,
+    this.typeOfVisa,
+    this.appointmentDate,
+    this.appointmentTime,
+    this.nationalIdentityCard,
+    this.permantVotersCard,
+    this.medicalReport,
   });
 
   UserData copyWith({
     String? firstname,
     String? lastname,
-    String? dateOfDate,
+    String? dateOfBirth,
     String? gender,
     String? country,
     String? nationality,
@@ -43,14 +47,16 @@ class UserData {
     String? bankVerificationNumber,
     String? localGovernmentArea,
     String? typeOfVisa,
-    File? nationalIdentityCard,
-    File? permantVotersCard,
-    File? medicalReport,
+    String? appointmentDate,
+    String? appointmentTime,
+    String? nationalIdentityCard,
+    String? permantVotersCard,
+    String? medicalReport,
   }) {
     return UserData(
       firstname: firstname ?? this.firstname,
       lastname: lastname ?? this.lastname,
-      dateOfDate: dateOfDate ?? this.dateOfDate,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       gender: gender ?? this.gender,
       country: country ?? this.country,
       nationality: nationality ?? this.nationality,
@@ -60,6 +66,8 @@ class UserData {
           bankVerificationNumber ?? this.bankVerificationNumber,
       localGovernmentArea: localGovernmentArea ?? this.localGovernmentArea,
       typeOfVisa: typeOfVisa ?? this.typeOfVisa,
+      appointmentDate: appointmentDate ?? this.appointmentDate,
+      appointmentTime: appointmentTime ?? this.appointmentTime,
       nationalIdentityCard: nationalIdentityCard ?? this.nationalIdentityCard,
       permantVotersCard: permantVotersCard ?? this.permantVotersCard,
       medicalReport: medicalReport ?? this.medicalReport,
@@ -70,7 +78,7 @@ class UserData {
     return {
       'firstname': firstname,
       'lastname': lastname,
-      'dateOfDate': dateOfDate,
+      'dateOfBirth': dateOfBirth,
       'gender': gender,
       'country': country,
       'nationality': nationality,
@@ -78,6 +86,8 @@ class UserData {
       'bankVerificationNumber': bankVerificationNumber,
       'localGovernmentArea': localGovernmentArea,
       'typeOfVisa': typeOfVisa,
+      'appointmentDate': appointmentDate,
+      'appointmentTime': appointmentTime,
       'nationalIdentityCard': nationalIdentityCard,
       'permantVotersCard': permantVotersCard,
       'medicalReport': medicalReport,
@@ -88,7 +98,7 @@ class UserData {
     return UserData(
       firstname: map['firstname'],
       lastname: map['lastname'],
-      dateOfDate: map['dateOfDate'],
+      dateOfBirth: map['dateOfBirth'],
       gender: map['gender'],
       country: map['country'],
       nationality: map['nationality'],
@@ -96,6 +106,8 @@ class UserData {
       bankVerificationNumber: map['bankVerificationNumber'],
       localGovernmentArea: map['localGovernmentArea'],
       typeOfVisa: map['typeOfVisa'],
+      appointmentDate: map['appointmentDate'],
+      appointmentTime: map['appointmentTime'],
       nationalIdentityCard: map['nationalIdentityCard'],
       permantVotersCard: map['permantVotersCard'],
       medicalReport: map['medicalReport'],
@@ -109,7 +121,7 @@ class UserData {
 
   @override
   String toString() {
-    return 'UserData(firstname: $firstname, lastname: $lastname, dateOfDate: $dateOfDate, gender: $gender, country: $country, nationality: $nationality, nationalIdentityNumber: $nationalIdentityNumber, bankVerificationNumber: $bankVerificationNumber, localGovernmentArea: $localGovernmentArea, typeOfVisa: $typeOfVisa, nationalIdentityCard: $nationalIdentityCard, permantVotersCard: $permantVotersCard, medicalReport: $medicalReport)';
+    return 'UserData(firstname: $firstname, lastname: $lastname, dateOfBirth: $dateOfBirth, gender: $gender, country: $country, nationality: $nationality, nationalIdentityNumber: $nationalIdentityNumber, bankVerificationNumber: $bankVerificationNumber, localGovernmentArea: $localGovernmentArea, typeOfVisa: $typeOfVisa, appointmentDate: $appointmentDate, appointmentTime: $appointmentTime, nationalIdentityCard: $nationalIdentityCard, permantVotersCard: $permantVotersCard, medicalReport: $medicalReport)';
   }
 
   @override
@@ -119,7 +131,7 @@ class UserData {
     return other is UserData &&
         other.firstname == firstname &&
         other.lastname == lastname &&
-        other.dateOfDate == dateOfDate &&
+        other.dateOfBirth == dateOfBirth &&
         other.gender == gender &&
         other.country == country &&
         other.nationality == nationality &&
@@ -127,6 +139,8 @@ class UserData {
         other.bankVerificationNumber == bankVerificationNumber &&
         other.localGovernmentArea == localGovernmentArea &&
         other.typeOfVisa == typeOfVisa &&
+        other.appointmentDate == appointmentDate &&
+        other.appointmentTime == appointmentTime &&
         other.nationalIdentityCard == nationalIdentityCard &&
         other.permantVotersCard == permantVotersCard &&
         other.medicalReport == medicalReport;
@@ -136,7 +150,7 @@ class UserData {
   int get hashCode {
     return firstname.hashCode ^
         lastname.hashCode ^
-        dateOfDate.hashCode ^
+        dateOfBirth.hashCode ^
         gender.hashCode ^
         country.hashCode ^
         nationality.hashCode ^
@@ -144,6 +158,8 @@ class UserData {
         bankVerificationNumber.hashCode ^
         localGovernmentArea.hashCode ^
         typeOfVisa.hashCode ^
+        appointmentDate.hashCode ^
+        appointmentTime.hashCode ^
         nationalIdentityCard.hashCode ^
         permantVotersCard.hashCode ^
         medicalReport.hashCode;

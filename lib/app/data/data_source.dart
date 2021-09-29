@@ -1,24 +1,37 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:lawrenceprice_test/app/data/model.dart';
 
 class DataSource {
-  Future<UserData> getData() async {
+  getData() async {
     final res =
         await get(Uri.parse('https://haypex.com.ng/lp/genderRatio.php'));
     if (res.statusCode == 200) {}
-    return UserData.fromJson(res.body);
+    var data = json.decode(res.body);
+    // print(data['Result']);
+    // print(res.body);
+    // print(data);
+    var male = double.parse(data['Result'][2]['counter']);
+    // print(male);
+    var female = double.parse(data['Result'][1]['counter']);
+    // print(female);
+    return <String, double>{'male': male, 'female': female};
+    // return (data['Result'] as List)
+    //     .map((item) => UserData.fromMap(item))
+    //     .toList();
   }
 
   postData(UserData userData) async {
     final res = await post(
         Uri.parse(
-          ' https://haypex.com.ng/lp/test.php',
+          'https://haypex.com.ng/lp/test.php',
         ),
         body: userData.toMap());
     if (res.statusCode == 200) {
       return res.body;
     } else {
-      res.body;
+      return res.body;
     }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawrenceprice_test/app/bloc/cubit/user_registration_cubit.dart';
-import 'package:lawrenceprice_test/app/data/model.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class Dashboard extends StatelessWidget {
@@ -9,14 +8,39 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dataMap =
-        BlocProvider.of<UserRegistrationCubit>(context).getGenderRatio();
     return Scaffold(
-      body: Column(
-        children: [
-          // Map<String, double>
-          // PieChart(dataMap: dataMap),
-        ],
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.close,
+            color: Colors.black,
+            size: 30.0,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Map<String, double>
+            BlocBuilder<UserRegistrationCubit, UserRegistrationState>(
+              builder: (context, state) {
+                if (state is UserRegistrationGetSuccessful) {
+                  return PieChart(dataMap: state.dataMap);
+                }
+                if (state is UserRegistrationLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return const Text('Something went wrong');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
